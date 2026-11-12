@@ -25,12 +25,16 @@ Each pack has two parts:
 
 ## Getting one for your own product
 
-A pack for one repository is a fixed-scope job: you give read access to the code (no production access, no secrets), and get the answer sheet and runbook back.
+The paid product is one download, **US$49 once**, that you run yourself on your own copy of the code. Nothing leaves your machine. Checkout is not open yet; the [product page](https://hand-crafter.github.io/handcraft/products/handover-pack.html) says what it checks and what it has been tested on.
 
-- Introductory price: **US$49** for each of the first three packs.
-- Regular price: US$149 for a seller preparing a sale, US$349 for a buyer checking a business before buying.
+Two things to know before comparing it with the samples above:
 
-Write to **handoverdesk@proton.me**.
+- **The download's report is narrower than these two samples.** The samples were prepared by AI agents that also looked up dependency advisories in the public OSV database and wrote the answer sheet. The download works offline, calls no AI model and looks up no advisories, so those parts are marked "not checked" in its report.
+- **Much of this can be done free.** The scanners involved are free, open-source tools, and GitHub gives every repository dependency alerts at no charge. The download saves the work of running them and turning the output into one report and a draft runbook a buyer can read; it is a convenience, not something you cannot get any other way.
+
+Handcraft no longer offers to prepare a pack for you: the earlier US$149 and US$349 prices are withdrawn.
+
+Questions, corrections and removal requests: **handoverdesk@proton.me**. The mailbox is not read every day; a reply can take up to a week.
 
 ## Licence and credit
 
