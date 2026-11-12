@@ -1,0 +1,207 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'"><title>Linkding — buyer answer sheet</title><style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,sans-serif;color:#172025;background:#e8ebed}
+*{box-sizing:border-box}body{margin:0}main{max-width:1050px;margin:24px auto}.sheet{background:white;padding:36px 44px;margin:0 0 20px;box-shadow:0 1px 5px #0002}
+h1{font-size:25px;line-height:1.2;margin:0 0 16px}h2{font-size:19px;margin:24px 0 12px}h3{font-size:15px;margin:20px 0 10px}
+p,li,td,th{font-size:13px;line-height:1.5}p{margin:10px 0}li{margin-bottom:10px}a{color:#154e75;overflow-wrap:anywhere}code{font-size:.92em;background:#f1f3f4;padding:1px 3px;overflow-wrap:anywhere}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #c5cdd1;padding:8px;text-align:left;vertical-align:top}th{background:#eef2f4}tr{break-inside:avoid}th:first-child{width:25%}strong{font-weight:650}pre{white-space:pre-wrap;overflow-wrap:anywhere}.screen-note{padding:12px 24px;background:#172025;color:#fff;text-align:center;font-size:13px}
+.light{font-weight:700}.light:before{content:"● ";font-size:15px}.green{color:#166534}.amber{color:#92400e}.red{color:#b91c1c}
+@page{size:A4;margin:13mm 14mm}
+@media print{:root{background:white}main{max-width:none;margin:0}.screen-note{display:none}.sheet{box-shadow:none;padding:0;margin:0;break-after:page}.sheet:last-child{break-after:auto}h1{font-size:18pt;margin:0 0 10pt}h2{font-size:13pt;margin:12pt 0 7pt}h3{font-size:10.5pt}p,li,td,th{font-size:9.4pt;line-height:1.28}p{margin:6pt 0}td,th{padding:5pt}table{margin:8pt 0}li{margin-bottom:7pt}h1,h2,h3{break-after:avoid}a{color:inherit;text-decoration:none}thead{display:table-header-group}code{background:transparent}.sheet:last-child p,.sheet:last-child li,.sheet:last-child td,.sheet:last-child th{font-size:9pt;line-height:1.24}.sheet:last-child li{margin-bottom:5pt;break-inside:avoid}}
+</style></head><body><div class="screen-note">Public-source sample · Static inspection only · Print on A4 for the three-page report followed by the handover runbook.</div><main><section class="sheet"><h1 id="linkding--buyer-answer-sheet">Linkding — buyer answer sheet</h1>
+<p>Public-source sample · 12 November 2026 · Static inspection, not a security assurance or a report on a business for sale.</p>
+<p>Repository: <a href="https://github.com/sissbruecker/linkding">https://github.com/sissbruecker/linkding</a> · Commit: <code>27b7303baf41bb28babc610ac8eaa486e1ddfab5</code>.</p>
+<h2 id="page-1--ten-questions-before-buying">Page 1 — Ten questions before buying</h2>
+<!-- licence-screen:start -->
+
+<h3 id="dependency-licence-screen--ask-before-buying">Dependency licence screen — ask before buying</h3>
+<p><strong>31 copyleft-labelled; 20 unlabelled</strong> dependency versions out of 641 screened (4 other/review labels). Copyleft terms can require sharing source code or keeping notices when software is distributed; some also apply to network use. Unlabelled packages leave permission to use or transfer them uncertain. This can add legal review, replacement work or conditions for a buyer; a label alone does not establish an obligation. <strong>Ask the seller</strong> for the exact package licences, which packages ship or run in the product, how licence duties are met, and evidence of rights to transfer the code. Counts include development and transitive versions, not just shipped packages. Evidence: <code>facts.json</code>, dependencies.licence_mix and registry_metadata; registry labels only, no legal clearance.</p>
+<!-- licence-screen:end -->
+
+<table>
+<thead>
+<tr>
+<th>Buyer question</th>
+<th>Evidence-backed answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. What am I taking over?</td>
+<td>A Django bookmark manager with sharing, archiving and an API. <code>README.md:19</code>, <code>README.md:61</code>.</td>
+</tr>
+<tr>
+<td>2. What must stay running?</td>
+<td>A web process and Huey worker, with a separate SQLite task store. <code>bootstrap.sh:30</code>, <code>bookmarks/settings/base.py:178</code>.</td>
+</tr>
+<tr>
+<td>3. Where is customer data?</td>
+<td>SQLite or PostgreSQL, plus on-disk assets; a database alone is insufficient. <code>docs/src/content/docs/backups.md:10</code>.</td>
+</tr>
+<tr>
+<td>4. Can another engineer deploy it?</td>
+<td>Docker instructions exist; the supplied image tag moves. Ask for the deployed version. <code>docker-compose.yml:4</code>.</td>
+</tr>
+<tr>
+<td>5. Can I recover after a server loss?</td>
+<td>SQLite restore is documented; PostgreSQL recovery needs a seller procedure. <code>docs/src/content/docs/backups.md:23</code>.</td>
+</tr>
+<tr>
+<td>6. Are there known dependency flaws?</td>
+<td>OSV matches need triage against the locked Django/REST-framework versions. <code>uv.lock:290</code>, <code>uv.lock:317</code>.</td>
+</tr>
+<tr>
+<td>7. What evidence supports safe changes?</td>
+<td>CI declares unit and browser tests; passing results were not checked. <code>.github/workflows/main.yaml:33</code>, <code>.github/workflows/main.yaml:62</code>.</td>
+</tr>
+<tr>
+<td>8. Does it expose credentials?</td>
+<td>A base signing-key candidate is replaced in production; no deployed leak is established. <code>bookmarks/settings/base.py:25</code>, <code>bookmarks/settings/prod.py:19</code>.</td>
+</tr>
+<tr>
+<td>9. What outside services and permissions transfer?</td>
+<td>Optional archiving sends bookmarked URLs to Internet Archive. Ask for account/settings custody. <code>bookmarks/services/tasks.py:60</code>.</td>
+</tr>
+<tr>
+<td>10. Can I maintain and distribute it?</td>
+<td>MIT permits reuse with its notice retained. Ask for a maintainer handover; bus factor is unproven. <code>LICENSE.txt:7</code>, <code>README.md:57</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Not checked: running software, installed dependencies, builds, current CI outcomes, measured test coverage, attack resistance, load, production settings, actual backups/restores, account ownership, revenue, operating costs, customer-data compliance, full history or downloaded package licence texts or transfer rights. Environment and credential files were excluded. Nothing in this sample establishes that any business is sale-ready.</p>
+</section><section class="sheet"><h2 id="page-2--verdict-and-evidence-coverage">Page 2 — Verdict and evidence coverage</h2>
+<p>Verdict: <strong>a documented product that warrants a recovery drill and dependency triage before a buyer relies on the handover.</strong> Green means documentary evidence exists, amber means a material question remains, red means a handover condition is unmet. These are review priorities, not a valuation or vulnerability severity score.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Light</th>
+<th>Buyer outcome and evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product and structure</td>
+<td><span class="light green">GREEN</span></td>
+<td>Conventional web process and worker are visible; ownership boundaries still need confirmation. <code>README.md:61</code>, <code>supervisord-all.conf:8</code>, <code>supervisord-all.conf:17</code>.</td>
+</tr>
+<tr>
+<td>Dependencies</td>
+<td><span class="light amber">AMBER</span></td>
+<td>Known-version advisory matches need runtime triage; Python and frontend/docs dependencies have different exposure. <code>uv.lock:290</code>, <code>uv.lock:317</code>, <code>docker/default.Dockerfile:26</code>.</td>
+</tr>
+<tr>
+<td>Credential handling</td>
+<td><span class="light amber">AMBER</span></td>
+<td>Production reads a generated signing key; operational rotation and custody are not supplied. <code>bookmarks/settings/prod.py:19</code>, <code>bookmarks/management/commands/generate_secret_key.py:14</code>.</td>
+</tr>
+<tr>
+<td>Tests and CI</td>
+<td><span class="light green">GREEN</span></td>
+<td>1,393 declarations in 101 test-area files (including helpers), with unit/browser CI jobs; no passing-state claim. <code>bookmarks/tests/test_auth_api.py:12</code>, <code>.github/workflows/main.yaml:32</code>, <code>.github/workflows/main.yaml:61</code>.</td>
+</tr>
+<tr>
+<td>Deployment and rollback</td>
+<td><span class="light amber">AMBER</span></td>
+<td>Moving image tag plus startup migrations require a seller-tested version/rollback pair. <code>docker-compose.yml:4</code>, <code>bootstrap.sh:19</code>.</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td><span class="light amber">AMBER</span></td>
+<td>SQLite backups are documented, but key/queue custody and PostgreSQL recovery require extra work. <code>docs/src/content/docs/backups.md:23</code>, <code>bookmarks/management/commands/full_backup.py:18</code>, <code>bookmarks/settings/base.py:180</code>.</td>
+</tr>
+<tr>
+<td>Maintainer dependency</td>
+<td><span class="light amber">AMBER</span></td>
+<td>First-person contribution policy and concentrated recent history make handover availability worth asking about. Neither proves one-person operational dependency. <code>README.md:57</code>; history method in <code>facts.json</code>.</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td><span class="light green">GREEN</span></td>
+<td>Retain the MIT copyright and permission notice; this does not clear bundled code or acquisition rights. <code>LICENSE.txt:7</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Measured inventory: <strong>36,737 code lines</strong> after scc excludes blanks/comments, across eligible first-party Python, JS/TS, HTML, CSS and shell. Protected files, binaries and <code>vendor</code> directories are excluded. Counts include tests, migrations and styles; they are not a complexity or quality score. Exact inputs and hashes are in <code>facts.json</code>. Check coverage: <strong>12 ran, 7 partial, 3 not run</strong> of 22; see <code>../coverage.md</code>.</p>
+<p>Observed history: 100 reachable commits in a depth-100 shallow clone, 22 author-name strings. The leading human name has 43%; an automated dependency author has 37%. Last commit: 13 September 2026. Names are not alias-merged; no lifetime bus-factor claim is made. Evidence is Git commit metadata at the recorded hash, rather than a fabricated source-line citation.</p>
+<p>Dependency appendix: 641/641 unique pins queried against public OSV; 16 versions matched advisory IDs. Local osv-scanner also inventoried 641 pins. Aliases are not independent flaws. All 641 pins have publish dates (62–4652 days old); age is not risk. Registry licence screen: 586 permissive, 31 copyleft candidates, 20 unknown, 4 other/review. Labels include dev/platform tuples and dual-licence alternatives, not a legal clearance. Base-image OS inventory is in <code>facts.json</code>; final target images remain unverified.</p>
+<p>Two advisory records were inspected manually: <a href="https://osv.dev/vulnerability/GHSA-33wh-fxxf-88vv">REST framework content-negotiation denial of service</a> reports a fixed version of 3.18.2; <a href="https://osv.dev/vulnerability/GHSA-q238-5cxm-5c9h">Django GeoDjango denial of service</a> concerns an optional subsystem. Do not infer that Linkding exposes GeoDjango simply because Django is installed. Locked pins are at <code>uv.lock:317</code> and <code>uv.lock:290</code>; the saved advisory review records describe the provider response, not an exploit test.</p>
+</section><section class="sheet"><h2 id="page-3--five-questions-to-resolve-first">Page 3 — Five questions to resolve first</h2>
+<ol type="1">
+<li><p><strong>What exactly survives a restore?</strong> The “full backup” command packages the database, assets, favicons and previews; it does not package <code>secretkey.txt</code> or <code>tasks.sqlite3</code>. The signing key is read separately and the task store has its own file. Ask the seller to demonstrate restore, explain queued-work handling and agree whether a forced sign-in is acceptable. Evidence: <code>bookmarks/management/commands/full_backup.py:18</code>, <code>bookmarks/management/commands/full_backup.py:25</code>, <code>bookmarks/settings/prod.py:19</code>, <code>bookmarks/settings/base.py:180</code>.</p></li>
+<li><p><strong>Which advisory matches affect the shipped app?</strong> Triage the REST-framework pin first, distinguish optional Django subsystems, and separate docs/build dependencies from runtime. Ask for a reviewed update and test results; this pack does not prescribe an untested upgrade. Evidence: <code>uv.lock:317</code>, <code>uv.lock:290</code>, <code>pyproject.toml:11</code>, <code>docker/default.Dockerfile:27</code>.</p></li>
+<li><p><strong>Can the seller reproduce and roll back the running version?</strong> Compose references a moving image tag; bootstrap automatically migrates the database. A previously working image may not understand a newly migrated schema. Ask for an image digest, configuration inventory and a matched pre-upgrade backup. Evidence: <code>docker-compose.yml:4</code>, <code>bootstrap.sh:19</code>.</p></li>
+<li><p><strong>Where do background failures become visible?</strong> The normal startup path supervises the worker separately and logs it to a file, while an experimental mode sends worker output to container logs. Ask which mode is deployed and how stalled snapshots are noticed; no production alerting was inspected. Evidence: <code>bootstrap.sh:32</code>, <code>supervisord-tasks.conf:9</code>, <code>supervisord-tasks.conf:10</code>, <code>supervisord-all.conf:21</code>.</p></li>
+<li><p><strong>Who controls authentication and outbound requests?</strong> Production replaces the base signing-key candidate; this is not a demonstrated production secret leak. Optional proxy authentication and OIDC change the trust boundary, and archive jobs send bookmarked URLs outward. Ask for key custody, proxy/identity-provider ownership and archive consent settings. Evidence: <code>bookmarks/settings/base.py:25</code>, <code>bookmarks/settings/prod.py:19</code>, <code>docs/src/content/docs/options.md:123</code>, <code>docs/src/content/docs/options.md:175</code>, <code>bookmarks/services/tasks.py:60</code>.</p></li>
+</ol>
+<h3 id="what-this-check-did-not-cover">What this check did not cover</h3>
+<p>All findings are static observations or stated inferences. No dependency or target code was installed, built or executed. No database, running container, deployed endpoint, sign-in, seller account or secret value was accessed for validation. The regex and gitleaks scans cannot clear a repository of secrets: protected configuration/credential paths, binary files, large files and Git history are outside it. File inventory exclusions are explicit in <code>facts.json</code>. Published base images received OS-package inventories; target-built images and the host OS were not assessed. It does not assess asset ownership, all licence obligations, exploitable call paths, security guarantees, capacity, customer count, financial performance or a seller's actual operating practices.</p>
+</section><section class="sheet"><h1 id="linkding--new-owner-runbook">Linkding — new-owner runbook</h1>
+<p>Source commit: <code>27b7303baf41bb28babc610ac8eaa486e1ddfab5</code>. Static draft for a future operator. <strong>None of these commands was run during this assessment.</strong> Execute only in a separately approved environment after reviewing the pinned source. Instructions labelled “proposed” are operator guidance inferred from the files, not a repository-tested procedure.</p>
+<p>Static check closure adds dependency metadata, structural candidates, redacted secret scanning and base-image OS packages; it does not validate these procedures. Tests, build/deploy and runtime security/performance <strong>cannot be checked on this machine</strong>. A safe validation needs an isolated disposable VM or container, no network, no host mounts, pre-vetted inputs and synthetic data. See <code>../coverage.md</code> for what each run would prove.</p>
+<h2 id="1-establish-custody-before-deployment">1. Establish custody before deployment</h2>
+<ol type="1">
+<li>Ask the seller for the running image digest, database engine, data-volume location, domain/proxy ownership, user inventory, enabled integrations, backup schedule and recovery targets. Record answers without copying credential values into this pack. The supplied deployment is only a template: <code>docker-compose.yml:3</code>, <code>docker-compose.yml:4</code>, <code>docker-compose.yml:8</code>.</li>
+<li>Agree a maintenance window and rollback checkpoint. Startup runs migrations automatically; retain a matched application version and database backup. Proposed release rule based on <code>bootstrap.sh:19</code>.</li>
+<li>Choose the standard image or the larger snapshot-capable variant to match the seller's features; Chromium changes memory/disk needs. Ask the seller for actual resource use. <code>docs/src/content/docs/installation.md:14</code>, <code>docker/default.Dockerfile:95</code>.</li>
+</ol>
+<h2 id="2-configure-and-deploy">2. Configure and deploy</h2>
+<ol type="1">
+<li>Use the Docker or Compose installation path in <code>docs/src/content/docs/installation.md:50</code> or <code>docs/src/content/docs/installation.md:67</code>. Proposed: pin an approved image digest, bind the persistent data volume at <code>/etc/linkding/data</code>, and expose port 9090 only through the agreed network boundary. <code>docker-compose.yml:4</code>, <code>docker-compose.yml:6</code>, <code>docker-compose.yml:8</code>.</li>
+<li>Supply configuration through an operator-controlled secret/configuration channel. The provided Compose template references a local environment file; that file and its example were not inspected. Ask the seller to supply and explain an equivalent configuration securely. <code>docker-compose.yml:9</code>.</li>
+<li>Variable names to confirm, with requiredness determined by deployment: <code>LD_HOST_PORT</code>, <code>LD_HOST_DATA_DIR</code>, <code>LD_CONTAINER_NAME</code> have template defaults (<code>docker-compose.yml:3</code>); PostgreSQL needs <code>LD_DB_ENGINE</code>, <code>LD_DB_HOST</code>, <code>LD_DB_DATABASE</code>, <code>LD_DB_USER</code>, <code>LD_DB_PASSWORD</code>, <code>LD_DB_PORT</code> as applicable (<code>bookmarks/settings/base.py:263</code>). Proxy/origin settings include <code>HOST_NAME</code>, <code>LD_CSRF_TRUSTED_ORIGINS</code>, <code>LD_USE_X_FORWARDED_HOST</code>; optional login modes include <code>LD_ENABLE_AUTH_PROXY</code>, <code>LD_ENABLE_OIDC</code> (<code>bookmarks/settings/prod.py:26</code>, <code>docs/src/content/docs/options.md:278</code>, <code>docs/src/content/docs/options.md:123</code>, <code>docs/src/content/docs/options.md:175</code>). Full source-derived names are in <code>facts.json</code>; this is not a verified production configuration.</li>
+<li>The documented Compose launch is <code>docker-compose up -d</code>. It is a future operator instruction; review and adapt the template first. Startup generates a signing key, migrates, initializes optional user settings and launches workers/web. <code>docs/src/content/docs/installation.md:71</code>, <code>bootstrap.sh:16</code>, <code>bootstrap.sh:30</code>.</li>
+<li>For a new isolated installation, create the initial administrator interactively with <code>docker-compose exec linkding python manage.py createsuperuser</code>. For an existing installation, arrange account transfer instead of creating an untracked extra administrator. <code>docs/src/content/docs/installation.md:78</code>.</li>
+<li>Proposed validation: check the <code>/health</code> route, sign in, create/retrieve a disposable bookmark, and confirm a background task finishes. A health response alone does not prove worker health. Ask the seller for a safe test account and endpoint/proxy mapping. <code>docker/default.Dockerfile:79</code>, <code>supervisord-tasks.conf:9</code>, <code>bookmarks/services/tasks.py:126</code>.</li>
+</ol>
+<h2 id="3-back-up-and-restore">3. Back up and restore</h2>
+<ol type="1">
+<li>For SQLite, the documented commands are <code>docker exec -it linkding python manage.py full_backup /etc/linkding/data/backup.zip</code>, followed by <code>docker cp linkding:/etc/linkding/data/backup.zip backup.zip</code>. Adapt the container name. Move the result off the application host into access-controlled backup storage. <code>docs/src/content/docs/backups.md:27</code>, <code>docs/src/content/docs/backups.md:33</code>.</li>
+<li>Proposed: pause writes and background work for a consistent database/assets checkpoint, or have the seller demonstrate consistency under live writes. The command uses SQLite's backup API, but walks asset directories separately. Avoid an uncoordinated copy of a live database file. <code>bookmarks/management/commands/full_backup.py:20</code>, <code>bookmarks/management/commands/full_backup.py:33</code>, <code>docs/src/content/docs/backups.md:54</code>.</li>
+<li>Ask the seller for signing-key escrow and a policy for pending background jobs: the zip does not include the signing-key file or queue store. Keep secret material outside this report and transfer it securely; never inspect or paste it into the pack. <code>bookmarks/settings/prod.py:19</code>, <code>bookmarks/settings/base.py:180</code>, <code>bookmarks/management/commands/full_backup.py:18</code>.</li>
+<li>The documented restore extracts the zip into a new data directory, mounts it at <code>/etc/linkding/data</code>, then starts the container. Proposed: restore into a separate isolated instance using the matched image; verify users, bookmark counts, one snapshot/image and job behavior before any cutover. Confirm permissions with the seller; bootstrap changes data ownership. <code>docs/src/content/docs/backups.md:40</code>, <code>bootstrap.sh:28</code>.</li>
+<li>PostgreSQL deployments: <strong>ask the seller</strong> for a tested database-native dump/restore procedure, server version/extensions, credentials custody and a corresponding assets snapshot. The SQLite command is not a PostgreSQL backup. Do not run it as a substitute. <code>docs/src/content/docs/backups.md:23</code>, <code>bookmarks/settings/base.py:271</code>.</li>
+</ol>
+<h2 id="4-rotate-secrets-and-transfer-integrations">4. Rotate secrets and transfer integrations</h2>
+<ol type="1">
+<li>Proposed: inventory signing-key, database, API, proxy and OIDC credentials by name and custodian only. Ask the seller which are live; source references do not establish ownership. <code>bookmarks/settings/prod.py:19</code>, <code>bookmarks/settings/base.py:267</code>, <code>docs/src/content/docs/options.md:175</code>.</li>
+<li>Signing key: schedule a forced reauthentication window, securely provision a new persistent key through the deployment's approved process, then restart and validate login. <strong>Ask the seller</strong> for the exact rotation/rollback procedure: the generator command only creates a file when absent and is not itself a rotation command. <code>bookmarks/management/commands/generate_secret_key.py:14</code>, <code>bookmarks/settings/prod.py:19</code>.</li>
+<li>Database/OIDC credentials: proposed coordinated change at the provider and app configuration, followed by restart and a database/login check. Ask the seller for overlap support and rollback access. No provider-specific procedure was validated. <code>bookmarks/settings/base.py:267</code>, <code>docs/src/content/docs/options.md:175</code>.</li>
+<li>API tokens: ask the seller for the client inventory and replace/revoke tokens using the supported account workflow; test each dependent client before revocation. Token authentication is exercised by <code>bookmarks/tests/test_auth_api.py:12</code>. An automated bulk-rotation procedure is not supplied here.</li>
+<li>Decide whether Internet Archive integration is appropriate for the new operation; it sends bookmarked URLs to a third party when active. Ask the seller for user settings and consent expectations. <code>bookmarks/services/tasks.py:43</code>, <code>bookmarks/services/tasks.py:60</code>.</li>
+</ol>
+<h2 id="5-first-week-checklist">5. First week checklist</h2>
+<table>
+<thead>
+<tr>
+<th>When</th>
+<th>Action and completion evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Day 1</td>
+<td>Obtain infrastructure/domain custody, record image/configuration names, and secure a pre-transfer backup. Ask the seller for the running topology. <code>docker-compose.yml:4</code>, <code>docker-compose.yml:8</code>.</td>
+</tr>
+<tr>
+<td>Day 2</td>
+<td>Demonstrate isolated restore with sample counts and assets; settle key/queue recovery. Ask the seller to sign off recovery time and loss tolerance. <code>docs/src/content/docs/backups.md:40</code>, <code>bookmarks/settings/base.py:180</code>.</td>
+</tr>
+<tr>
+<td>Day 3</td>
+<td>Review OSV matches and agree a tested patch order; request actual unit/browser test results from the release environment. <code>uv.lock:317</code>, <code>.github/workflows/main.yaml:33</code>, <code>.github/workflows/main.yaml:62</code>.</td>
+</tr>
+<tr>
+<td>Day 4</td>
+<td>Transfer/rotate credentials and test a representative API/SSO client; retain rollback access only for the agreed window. <code>bookmarks/settings/prod.py:19</code>, <code>docs/src/content/docs/options.md:175</code>.</td>
+</tr>
+<tr>
+<td>Day 5</td>
+<td>Check worker logs and snapshot completion; agree alerting, backup retention and on-call ownership. Ask the seller for thresholds and escalation contacts. <code>supervisord-tasks.conf:10</code>, <code>bookmarks/services/tasks.py:303</code>.</td>
+</tr>
+<tr>
+<td>Days 6–7</td>
+<td>Rehearse a release with a pre-migration backup, record decisions, and retain the licence notice in distributed copies. <code>bootstrap.sh:19</code>, <code>LICENSE.txt:7</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Unresolved seller answers are handover requirements, not steps this sample has completed. Runtime validation, resource sizing, monitoring configuration, PostgreSQL restore and exact credential-rotation commands remain unverified.</p>
+</section></main></body></html>

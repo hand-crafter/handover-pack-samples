@@ -1,0 +1,209 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'"><title>Kutt — buyer answer sheet</title><style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,sans-serif;color:#172025;background:#e8ebed}
+*{box-sizing:border-box}body{margin:0}main{max-width:1050px;margin:24px auto}.sheet{background:white;padding:36px 44px;margin:0 0 20px;box-shadow:0 1px 5px #0002}
+h1{font-size:25px;line-height:1.2;margin:0 0 16px}h2{font-size:19px;margin:24px 0 12px}h3{font-size:15px;margin:20px 0 10px}
+p,li,td,th{font-size:13px;line-height:1.5}p{margin:10px 0}li{margin-bottom:10px}a{color:#154e75;overflow-wrap:anywhere}code{font-size:.92em;background:#f1f3f4;padding:1px 3px;overflow-wrap:anywhere}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #c5cdd1;padding:8px;text-align:left;vertical-align:top}th{background:#eef2f4}tr{break-inside:avoid}th:first-child{width:25%}strong{font-weight:650}pre{white-space:pre-wrap;overflow-wrap:anywhere}.screen-note{padding:12px 24px;background:#172025;color:#fff;text-align:center;font-size:13px}
+.light{font-weight:700}.light:before{content:"● ";font-size:15px}.green{color:#166534}.amber{color:#92400e}.red{color:#b91c1c}
+@page{size:A4;margin:13mm 14mm}
+@media print{:root{background:white}main{max-width:none;margin:0}.screen-note{display:none}.sheet{box-shadow:none;padding:0;margin:0;break-after:page}.sheet:last-child{break-after:auto}h1{font-size:18pt;margin:0 0 10pt}h2{font-size:13pt;margin:12pt 0 7pt}h3{font-size:10.5pt}p,li,td,th{font-size:9.4pt;line-height:1.28}p{margin:6pt 0}td,th{padding:5pt}table{margin:8pt 0}li{margin-bottom:7pt}h1,h2,h3{break-after:avoid}a{color:inherit;text-decoration:none}thead{display:table-header-group}code{background:transparent}.sheet:last-child p,.sheet:last-child li,.sheet:last-child td,.sheet:last-child th{font-size:9pt;line-height:1.24}.sheet:last-child li{margin-bottom:5pt;break-inside:avoid}}
+</style></head><body><div class="screen-note">Public-source sample · Static inspection only · Print on A4 for the three-page report followed by the handover runbook.</div><main><section class="sheet"><h1 id="kutt--buyer-answer-sheet">Kutt — buyer answer sheet</h1>
+<p>Public-source sample · 12 November 2026 · Static inspection, not a security assurance or a report on a business for sale.</p>
+<p>Repository: <a href="https://github.com/thedevs-network/kutt">https://github.com/thedevs-network/kutt</a> · Commit: <code>029da42b2459693681886665589fd9512d6b473c</code>.</p>
+<h2 id="page-1--ten-questions-before-buying">Page 1 — Ten questions before buying</h2>
+<!-- licence-screen:start -->
+
+<h3 id="dependency-licence-screen--ask-before-buying">Dependency licence screen — ask before buying</h3>
+<p><strong>1 copyleft-labelled; 8 unlabelled</strong> dependency versions out of 422 screened (2 other/review labels). Copyleft terms can require sharing source code or keeping notices when software is distributed; some also apply to network use. Unlabelled packages leave permission to use or transfer them uncertain. This can add legal review, replacement work or conditions for a buyer; a label alone does not establish an obligation. <strong>Ask the seller</strong> for the exact package licences, which packages ship or run in the product, how licence duties are met, and evidence of rights to transfer the code. Counts include development and transitive versions, not just shipped packages. Evidence: <code>facts.json</code>, dependencies.licence_mix and registry_metadata; registry labels only, no legal clearance.</p>
+<!-- licence-screen:end -->
+
+<table>
+<thead>
+<tr>
+<th>Buyer question</th>
+<th>Evidence-backed answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. What am I taking over?</td>
+<td>A Node/Express URL shortener with custom domains, accounts and statistics. <code>README.md:5</code>, <code>server/server.js:31</code>.</td>
+</tr>
+<tr>
+<td>2. What must stay running?</td>
+<td>Web server, expiry timer and visit processing; Redis is optional. <code>server/server.js:20</code>, <code>server/queues/queues.js:15</code>.</td>
+</tr>
+<tr>
+<td>3. Where is customer data?</td>
+<td>SQLite and customizations use separate volumes; other databases are supported. <code>docker-compose.yml:5</code>, <code>README.md:112</code>.</td>
+</tr>
+<tr>
+<td>4. Can another engineer deploy it?</td>
+<td>Setup is documented; container startup migrates the database automatically. <code>README.md:57</code>, <code>Dockerfile:25</code>.</td>
+</tr>
+<tr>
+<td>5. Can I recover after a server loss?</td>
+<td>Storage is defined; ask for a tested database, customization and queue recovery procedure. <code>docker-compose.yml:5</code>, <code>server/queues/queues.js:16</code>.</td>
+</tr>
+<tr>
+<td>6. Are there known dependency flaws?</td>
+<td>OSV matches include hbs and optional mysql2; exploitability was not tested. <code>package.json:41</code>, <code>package.json:48</code>.</td>
+</tr>
+<tr>
+<td>7. What evidence supports safe changes?</td>
+<td>No matching tests, package test script or CI test job were found in this snapshot. <code>package.json:6</code>, <code>.github/workflows/docker-build-latest.yaml:12</code>.</td>
+</tr>
+<tr>
+<td>8. Does it expose credentials?</td>
+<td>No eligible-text regex hits; this is not clearance. Production needs a signing secret. <code>README.md:96</code>, <code>server/passport.js:13</code>.</td>
+</tr>
+<tr>
+<td>9. What outside services and permissions transfer?</td>
+<td>SMTP, optional identity login and domain certificates need custody. <code>README.md:129</code>, <code>README.md:131</code>, <code>README.md:138</code>.</td>
+</tr>
+<tr>
+<td>10. Can I maintain and distribute it?</td>
+<td>Retain the MIT notice. Request maintainer handover; recent commit share is not a bus factor. <code>LICENSE:12</code>, <code>README.md:260</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Not checked: running software, installs/builds, current CI results, private tests, measured coverage, exploitation, load, production settings, actual backup/restore, domain/provider ownership, revenue, costs, data compliance, full history or downloaded package licence texts or transfer rights. Environment and credential files were excluded. This public code sample is not an assessment of a business being offered for sale.</p>
+</section><section class="sheet"><h2 id="page-2--verdict-and-evidence-coverage">Page 2 — Verdict and evidence coverage</h2>
+<p>Verdict: <strong>a small, understandable product whose buyer still needs a demonstrated recovery procedure and evidence for regression safety.</strong> Green means documentary evidence exists, amber means an unresolved question, red means an unmet handover condition. Colours express buyer priorities, not measured vulnerability severity or valuation.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Light</th>
+<th>Buyer outcome and evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product and structure</td>
+<td><span class="light green">GREEN</span></td>
+<td>Express entry point, templates, API and redirect route are visible. <code>server/server.js:31</code>, <code>server/server.js:64</code>, <code>server/server.js:78</code>, <code>server/server.js:82</code>.</td>
+</tr>
+<tr>
+<td>Dependencies</td>
+<td><span class="light amber">AMBER</span></td>
+<td>Runtime hbs and optional MySQL driver have advisory matches to triage. <code>package.json:41</code>, <code>package.json:48</code>, <code>server/knex.js:7</code>.</td>
+</tr>
+<tr>
+<td>Credential handling</td>
+<td><span class="light amber">AMBER</span></td>
+<td>JWT signing secret and account-provider secrets require a transfer/rotation plan; zero regex hits do not prove safety. <code>README.md:96</code>, <code>README.md:142</code>, <code>server/passport.js:13</code>.</td>
+</tr>
+<tr>
+<td>Tests and CI</td>
+<td><span class="light red">RED</span></td>
+<td>No test script in the manifest or test step in the reviewed build workflow; request private test evidence and a release smoke suite. <code>package.json:6</code>, <code>.github/workflows/docker-build-latest.yaml:32</code>.</td>
+</tr>
+<tr>
+<td>Deployment and rollback</td>
+<td><span class="light amber">AMBER</span></td>
+<td>Container startup runs migrations; the alternative database image is unpinned. <code>Dockerfile:25</code>, <code>docker-compose.postgres.yml:22</code>.</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td><span class="light red">RED</span></td>
+<td>Persistent volumes are defined, but the setup section gives no demonstrated restore procedure. Request one before relying on handover. <code>docker-compose.yml:6</code>, <code>docker-compose.yml:7</code>, <code>README.md:57</code>.</td>
+</tr>
+<tr>
+<td>Maintainer dependency</td>
+<td><span class="light amber">AMBER</span></td>
+<td>Contributor acknowledgements and recent commit concentration support requesting a guided transfer; not proof of a one-person bus factor. <code>README.md:260</code>; history method in <code>facts.json</code>.</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td><span class="light green">GREEN</span></td>
+<td>Retain the MIT notice; bundled dependencies, branding and transfer rights need separate review. <code>LICENSE:12</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Measured inventory: <strong>12,878 code lines</strong> after scc excludes blanks/comments in eligible JavaScript, HTML, Handlebars and CSS. Counts include documentation/static material; protected files and unsupported binaries are excluded. File hashes and exclusions are in <code>facts.json</code>. Check coverage: <strong>12 ran, 7 partial, 3 not run</strong> of 22; see <code>../coverage.md</code>.</p>
+<p>Observed history: 147 reachable commits in a depth-100 shallow clone; merges can yield more than 100 commits. There are 13 author-name strings; the leading name has 120 commits (81.6%) and a possible alias has seven (4.8%), not merged by the collector. Last commit: 19 October 2026. This is recent-history concentration, not an assessment of employee count or operational knowledge. Evidence is Git metadata at the recorded commit, not a source-file line.</p>
+<p>Dependency appendix: 422/422 unique pins queried against public OSV; 16 versions matched advisory IDs. Local osv-scanner also inventoried 422 pins. Aliases are not independent flaws. All 422 pins have publish dates (130–5452 days old); age is not risk. Registry licence screen: 411 permissive, 1 copyleft candidates, 8 unknown, 2 other/review. Labels include dev/platform tuples and dual-licence alternatives, not a legal clearance. Base-image OS inventory is in <code>facts.json</code>; final target images remain unverified.</p>
+<p>Manually inspected provider records: <a href="https://osv.dev/vulnerability/GHSA-7f5c-rpf4-86p8">hbs information exposure</a> marks versions through 4.4.0 affected and supplies no fixed version; <a href="https://osv.dev/vulnerability/GHSA-3f6p-5ww8-9rcr">mysql2 authentication downgrade</a> reports a fix at 3.22.0. These records do not establish an exploit in Kutt. Verify upstream guidance, database choice and compatibility before an update. The pins are at <code>package.json:41</code> and <code>package.json:48</code>.</p>
+</section><section class="sheet"><h2 id="page-3--five-questions-to-resolve-first">Page 3 — Five questions to resolve first</h2>
+<ol type="1">
+<li><p><strong>What proves a release still works?</strong> The manifest has start/migration/docs scripts but no test script, and the reviewed workflow builds/pushes an image without a test step. Request any private tests, past release evidence and a repeatable smoke checklist for redirects, accounts and statistics. Evidence: <code>package.json:6</code>, <code>.github/workflows/docker-build-latest.yaml:12</code>, <code>.github/workflows/docker-build-latest.yaml:32</code>.</p></li>
+<li><p><strong>Can the seller restore every durable component?</strong> The default deployment persists SQLite and customized assets separately. With Redis enabled, visit work is queued there, so describing Redis as disposable cache would hide potential unprocessed statistics. Request a restore demonstration and an agreed queue-loss policy. Evidence: <code>docker-compose.yml:6</code>, <code>docker-compose.yml:7</code>, <code>server/queues/queues.js:16</code>, <code>server/queues/visit.js:11</code>.</p></li>
+<li><p><strong>Which advisory matches warrant action on this deployment?</strong> hbs is a runtime template dependency; mysql2 is relevant when a MySQL-family backend is selected. Triage against upstream records and request compatible updates, without presenting all OSV IDs as exploitable bugs. Evidence: <code>package.json:41</code>, <code>package.json:48</code>, <code>server/server.js:64</code>, <code>server/knex.js:7</code>.</p></li>
+<li><p><strong>What is the tested upgrade and rollback sequence?</strong> Container startup applies migrations automatically; the PostgreSQL example uses an unversioned image. Ask for pinned images and a database backup made before migration; restarting an older image is not a demonstrated schema rollback. Evidence: <code>Dockerfile:25</code>, <code>docker-compose.postgres.yml:22</code>, <code>knexfile.js:23</code>.</p></li>
+<li><p><strong>Who owns the domains, certificates and background-work convention?</strong> The README records a former domain passing to another party and says custom-domain certificates are manual. The expiry timer is gated on an instance number, so clustered hosting needs one agreed scheduler. Ask for registrar/TLS custody and the process topology. Evidence: <code>README.md:9</code>, <code>README.md:129</code>, <code>server/server.js:20</code>, <code>server/cron.js:5</code>.</p></li>
+</ol>
+<h3 id="what-this-check-did-not-cover">What this check did not cover</h3>
+<p>No target code, package install, build, container or test was run. No production service, account or secret was contacted for validation. Tests may exist outside the tracked tree. Regex and gitleaks scans exclude protected files, binaries, large files and Git history; a clean result is not secret clearance. Published base images received OS-package inventories; target-built images and the host OS were not assessed. No authorization, template-injection, database transport-security, rate-limit, performance, revenue, privacy-compliance or acquisition-rights audit was performed. Infrastructure settings, private integrations and operational experience can change every handover conclusion here.</p>
+</section><section class="sheet"><h1 id="kutt--new-owner-runbook">Kutt — new-owner runbook</h1>
+<p>Source commit: <code>029da42b2459693681886665589fd9512d6b473c</code>. Static draft for a future operator. <strong>None of these commands was run during this assessment.</strong> Review the pinned source and use a separately approved environment. “Proposed” steps are operator guidance inferred from repository files, not tested upstream recovery instructions.</p>
+<p>Static check closure adds dependency metadata, structural candidates, redacted secret scanning and base-image OS packages; it does not validate these procedures. Tests, build/deploy and runtime security/performance <strong>cannot be checked on this machine</strong>. A safe validation needs an isolated disposable VM or container, no network, no host mounts, pre-vetted inputs and synthetic data. See <code>../coverage.md</code> for what each run would prove.</p>
+<h2 id="1-establish-custody-before-deployment">1. Establish custody before deployment</h2>
+<ol type="1">
+<li>Ask the seller for the running version/image digest, database choice and version, domain/registrar accounts, custom-domain certificates, proxy settings, email/identity providers, backup location and maintenance window. Domain ownership has already mattered to this product. <code>README.md:9</code>, <code>README.md:129</code>, <code>README.md:138</code>.</li>
+<li>Record whether Redis is enabled and the number of app instances. Agree which instance runs the expiry timer and what happens to pending visit statistics during a move. <code>server/server.js:20</code>, <code>server/queues/queues.js:15</code>, <code>server/queues/visit.js:11</code>.</li>
+<li>Ask the seller for an actual backup/restore demonstration and release regression evidence. The reviewed manifest provides no test script; a build workflow alone does not demonstrate correct redirects or safe migrations. <code>package.json:6</code>, <code>.github/workflows/docker-build-latest.yaml:32</code>.</li>
+</ol>
+<h2 id="2-configure-and-deploy">2. Configure and deploy</h2>
+<ol type="1">
+<li>Choose one topology to match the seller. The default Compose file uses SQLite with persistent database and customization volumes. PostgreSQL/Redis and MariaDB/Redis examples are alternatives, not additional services required for every deployment. <code>docker-compose.yml:5</code>, <code>README.md:76</code>.</li>
+<li>Prepare an approved pinned image and configuration outside this report. The Dockerfile uses Node 22 and an exact lockfile install, but its base tag is mutable. Proposed: record the built image digest and source commit. No image was built for this sample. <code>Dockerfile:2</code>, <code>Dockerfile:11</code>.</li>
+<li>Configure variable names only: production requires <code>JWT_SECRET</code>; confirm <code>DEFAULT_DOMAIN</code>, <code>PORT</code>, <code>TRUST_PROXY</code>, <code>DISALLOW_REGISTRATION</code>, <code>DISALLOW_ANONYMOUS_LINKS</code>, <code>ENABLE_RATE_LIMIT</code>. Documentation supplies defaults, not a safe configuration for every network. Ask the seller for the approved proxy and abuse-prevention policy. <code>README.md:96</code>, <code>README.md:105</code>, <code>README.md:111</code>, <code>README.md:130</code>.</li>
+<li>For SQLite confirm <code>DB_CLIENT</code> and <code>DB_FILENAME</code>; default Compose places the file in <code>/var/lib/kutt</code>. For PostgreSQL/MySQL confirm <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_NAME</code>, <code>DB_USER</code>, <code>DB_PASSWORD</code>, <code>DB_SSL</code>; for Redis, confirm <code>REDIS_ENABLED</code>, <code>REDIS_HOST</code>, <code>REDIS_PORT</code>, <code>REDIS_PASSWORD</code>, <code>REDIS_DB</code>. Ask the seller for credentials through a secure channel. No credential/environment files were inspected. <code>docker-compose.yml:9</code>, <code>server/knex.js:10</code>, <code>server/redis.js:7</code>.</li>
+<li>When needed, configure SMTP names <code>MAIL_ENABLED</code>, <code>MAIL_HOST</code>, <code>MAIL_PORT</code>, <code>MAIL_USER</code>, <code>MAIL_PASSWORD</code>, <code>MAIL_FROM</code>, <code>MAIL_SECURE</code>; optional OIDC names include <code>OIDC_ENABLED</code>, <code>OIDC_ISSUER</code>, <code>OIDC_CLIENT_ID</code>, <code>OIDC_CLIENT_SECRET</code>. Ask the seller for provider ownership and callback settings. <code>README.md:131</code>, <code>README.md:138</code>, <code>server/mail/mail.js:9</code>.</li>
+<li>The documented operator launch is <code>docker compose up</code>, or <code>docker compose -f docker-compose.postgres.yml up</code> for that alternative. Proposed: inspect/override the template first, add restart/health/secret configuration appropriate to the hosting platform, and keep public ingress closed until initialization is complete. Startup runs <code>npm run migrate</code> before <code>npm start</code>. <code>README.md:70</code>, <code>README.md:76</code>, <code>Dockerfile:25</code>.</li>
+<li>A new installation prompts for an administrator; an existing one needs a controlled account transfer. Proposed validation: check <code>/api/v2/health</code>, sign in, create a disposable short link, follow its redirect, verify its statistics, and check account email if enabled. The health handler only returns text and does not prove database or queue health. <code>README.md:61</code>, <code>server/server.js:78</code>, <code>server/routes/routes.js:18</code>, <code>server/routes/health.routes.js:5</code>, <code>server/queues/visit.js:11</code>.</li>
+</ol>
+<h2 id="3-back-up-and-restore--proposed-ask-the-seller-to-validate">3. Back up and restore — proposed; ask the seller to validate</h2>
+<ol type="1">
+<li>Define recovery-time and data-loss targets and a maintenance window with the seller. Stop new writes and let pending work drain using a seller-approved procedure. The source defines storage and queues, not a complete operational recovery command. <code>docker-compose.yml:6</code>, <code>server/queues/queues.js:16</code>.</li>
+<li>SQLite: ask the seller for a tested transaction-consistent backup method. Proposed fallback for an agreed outage: stop <strong>all</strong> database writers, preserve the complete database volume, and back up the separate customizations volume. Do not just copy a live database file. Retain the matched image and configuration names with the encrypted, off-host backup. <code>docker-compose.yml:6</code>, <code>docker-compose.yml:7</code>, <code>server/knex.js:12</code>.</li>
+<li>PostgreSQL/MySQL: <strong>ask the seller</strong> for database-native backup/restore commands matched to server versions, a verified dump and the customizations volume. Do not treat an uncoordinated copy of the live database volume as a recovery procedure. The PostgreSQL example's image is not version-pinned. <code>docker-compose.postgres.yml:22</code>, <code>docker-compose.postgres.yml:26</code>, <code>README.md:112</code>.</li>
+<li>Redis: <strong>ask the seller</strong> whether pending visit jobs must survive. This is not solely a cache. Agree drain/snapshot/replay handling and duplicate-statistics behavior; the example does not provide a complete queue-recovery policy. <code>server/queues/queues.js:16</code>, <code>server/queues/queues.js:19</code>, <code>server/queues/visit.js:23</code>.</li>
+<li>Proposed restore drill: restore volumes/database into an isolated instance with the matched application image and custom files; control egress and domain routing to prevent sending production mail or taking live redirects. Check users, link count, a sample redirect, customization and visit statistics. Ask the seller to approve results before traffic cutover. <code>docker-compose.yml:5</code>, <code>server/server.js:54</code>, <code>server/server.js:82</code>, <code>server/mail/mail.js:21</code>.</li>
+<li>Do not assume an older app image undoes a database migration. Keep the pre-migration database checkpoint and matched application together; ask the seller for a rehearsed rollback. <code>Dockerfile:25</code>, <code>knexfile.js:23</code>.</li>
+</ol>
+<h2 id="4-rotate-secrets-and-transfer-accounts">4. Rotate secrets and transfer accounts</h2>
+<ol type="1">
+<li>Proposed: inventory secret names/custodians, arrange new provider access, and schedule a maintenance window. Keep all values outside this pack. The app supports file-supplied variables as documented; the required production signing-secret name is <code>JWT_SECRET</code>. <code>README.md:96</code>, <code>README.md:98</code>.</li>
+<li>Replace the JWT signing secret through the approved deployment channel and restart all app instances together. Proposed: expect active JWTs and OIDC cookie sessions signed with the old key to stop validating; test fresh login and rollback access. Ask the seller for an exact tested rotation procedure and acceptable logout window. <code>server/passport.js:11</code>, <code>server/server.js:46</code>.</li>
+<li>Rotate database, Redis, SMTP and identity-provider secrets at each provider and update the app in a coordinated window. Ask the seller for overlap behavior and recovery access; provider-specific commands were not validated. <code>server/knex.js:17</code>, <code>server/redis.js:12</code>, <code>server/mail/mail.js:15</code>, <code>README.md:142</code>.</li>
+<li>Regenerate individual API keys through the supported authenticated account workflow and update clients before revoking access. Ask the seller for the client inventory and whether old keys remain in backups/caches. The handler creates and writes a replacement key; do not paste it into this report. <code>server/handlers/auth.handler.js:212</code>, <code>server/handlers/auth.handler.js:218</code>, <code>server/passport.js:64</code>.</li>
+<li>Transfer registrar, DNS, certificate-renewal and provider billing ownership. For custom domains the README makes certificate generation an operator responsibility. Ask the seller for renewal automation, expiry dates and recovery codes through a secure handover channel. <code>README.md:129</code>, <code>README.md:9</code>.</li>
+</ol>
+<h2 id="5-first-week-checklist">5. First week checklist</h2>
+<table>
+<thead>
+<tr>
+<th>When</th>
+<th>Action and completion evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Day 1</td>
+<td>Confirm domain/provider control, database topology, instance count and a pre-transfer backup. <code>README.md:9</code>, <code>docker-compose.yml:5</code>, <code>server/server.js:20</code>.</td>
+</tr>
+<tr>
+<td>Day 2</td>
+<td>Demonstrate isolated restore including custom files and queued visits, then agree recovery targets. Ask the seller to sign off. <code>docker-compose.yml:7</code>, <code>server/queues/queues.js:16</code>.</td>
+</tr>
+<tr>
+<td>Day 3</td>
+<td>Triage hbs/MySQL advisory matches and ask for a representative regression checklist or private tests. <code>package.json:41</code>, <code>package.json:48</code>, <code>package.json:6</code>.</td>
+</tr>
+<tr>
+<td>Day 4</td>
+<td>Transfer/rotate secrets, test fresh login/API access and mail, and verify custom-domain TLS. <code>server/passport.js:13</code>, <code>server/mail/mail.js:21</code>, <code>README.md:129</code>.</td>
+</tr>
+<tr>
+<td>Day 5</td>
+<td>Observe expiry processing, queue failures and visit counts; agree alerting and an escalation owner. Ask the seller for monitoring thresholds. <code>server/cron.js:5</code>, <code>server/queues/queues.js:21</code>, <code>server/queues/visit.js:23</code>.</td>
+</tr>
+<tr>
+<td>Days 6–7</td>
+<td>Rehearse a pinned release and matched rollback in isolation; retain the MIT notice in distributed copies. <code>Dockerfile:25</code>, <code>LICENSE:12</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>This runbook cannot yet guarantee that another owner could run the seller's actual deployment. Tested backup commands, provider-specific rotation, production configuration, resource limits and release regression evidence remain <strong>ask the seller</strong> gaps.</p>
+</section></main></body></html>
