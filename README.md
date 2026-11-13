@@ -20,7 +20,7 @@ Each pack has two parts:
 - **Neither project is for sale, and neither asked for this.** Linkding and Kutt are public open-source projects, picked only because their code is open and well kept. Their maintainers did not commission, review or endorse these samples. The "before buying" wording shows the format a real pack uses.
 - **Static inspection only.** Nothing from either project was installed, built or run. Of 22 checks, 12 ran, 7 ran in part and 3 did not run (tests, build and deploy, and security and load testing while running). [`coverage.md`](coverage.md) lists every check and its limit.
 - **Not a security audit.** Dependency advisories come from the public OSV database and were not tested for whether they can be exploited here. A clean scan is not a clearance.
-- **Prepared with automated scanners and AI agents.** No independent human engineer reviewed these two samples. Every statement carries a file and line reference so a reader can check it.
+- **Prepared with automated scanners.** No independent engineer reviewed these two samples. Every statement carries a file and line reference so a reader can check it.
 - **Corrections and removal.** If you maintain either project and want something corrected or the sample taken down, write to the address below and it will be done.
 
 ## Getting one for your own product
@@ -29,7 +29,7 @@ The paid product is one download, **US$49 once**, that you run yourself on your 
 
 Two things to know before comparing it with the samples above:
 
-- **The download's report is narrower than these two samples.** The samples were prepared by AI agents that also looked up dependency advisories in the public OSV database and wrote the answer sheet. The download works offline, calls no AI model and looks up no advisories, so those parts are marked "not checked" in its report.
+- **The download's report is narrower than these two samples.** The samples had two extra steps: dependency advisories looked up in the public OSV database, and a written answer sheet. The download works offline, calls no AI model and looks up no advisories, so those parts are marked "not checked" in its report.
 - **Much of this can be done free.** The scanners involved are free, open-source tools, and GitHub gives every repository dependency alerts at no charge. The download saves the work of running them and turning the output into one report and a draft runbook a buyer can read; it is a convenience, not something you cannot get any other way.
 
 Handcraft no longer offers to prepare a pack for you: the earlier US$149 and US$349 prices are withdrawn.
